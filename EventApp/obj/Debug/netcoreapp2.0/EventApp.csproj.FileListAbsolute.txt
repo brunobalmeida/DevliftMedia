@@ -1,0 +1,12 @@
+C:\Users\dbrun\Desktop\DevliftMedia\EventApp\bin\Debug\netcoreapp2.0\EventApp.deps.json
+C:\Users\dbrun\Desktop\DevliftMedia\EventApp\bin\Debug\netcoreapp2.0\EventApp.runtimeconfig.json
+C:\Users\dbrun\Desktop\DevliftMedia\EventApp\bin\Debug\netcoreapp2.0\EventApp.runtimeconfig.dev.json
+C:\Users\dbrun\Desktop\DevliftMedia\EventApp\bin\Debug\netcoreapp2.0\EventApp.dll
+C:\Users\dbrun\Desktop\DevliftMedia\EventApp\bin\Debug\netcoreapp2.0\EventApp.pdb
+C:\Users\dbrun\Desktop\DevliftMedia\EventApp\obj\Debug\netcoreapp2.0\EventApp.csprojResolveAssemblyReference.cache
+C:\Users\dbrun\Desktop\DevliftMedia\EventApp\obj\Debug\netcoreapp2.0\EventApp.csproj.CoreCompileInputs.cache
+C:\Users\dbrun\Desktop\DevliftMedia\EventApp\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\dbrun\Desktop\DevliftMedia\EventApp\obj\Debug\netcoreapp2.0\EventApp.AssemblyInfoInputs.cache
+C:\Users\dbrun\Desktop\DevliftMedia\EventApp\obj\Debug\netcoreapp2.0\EventApp.AssemblyInfo.cs
+C:\Users\dbrun\Desktop\DevliftMedia\EventApp\obj\Debug\netcoreapp2.0\EventApp.dll
+C:\Users\dbrun\Desktop\DevliftMedia\EventApp\obj\Debug\netcoreapp2.0\EventApp.pdb
