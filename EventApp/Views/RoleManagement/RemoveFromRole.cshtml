@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    string userName = Context.Session.GetString("userName");
+    ViewData["Title"] = "Remove From Role";
+}
+
+
+
+
+<br />
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 text-center">
+
+        <h2>Are you sure do you want to remove <br /> <span class="text-danger">@userName</span> <br />from role?</h2>
+        <form asp-action="RemoveFromRole" class="form-group">
+            <br />
+            <input class="form-control" type="text" name="RemoveFromRole" value="@userName" disabled />
+            <br /><br />
+            <input type="submit" value="Remove User From Role" class="btn btn-outline-danger" />
+        </form>
+
+    </div>
+    <div class="col-md-3"></div>
+</div>
+ 

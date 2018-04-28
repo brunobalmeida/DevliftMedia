@@ -14,5 +14,17 @@ namespace EventApp.Models
         public string EventContact { get; set; }
         public string EventLink { get; set; }
         public string EventAddress { get; set; }
+
+        public string GetPicture()
+        {
+            if (Picture == null)
+            {
+                return null;
+            }
+
+            var base64Image = Convert.ToBase64String(Picture);
+            return $"data:{PictureType};base64,{base64Image}";
+        }
+
     }
 }

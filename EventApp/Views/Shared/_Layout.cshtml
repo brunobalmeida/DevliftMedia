@@ -31,14 +31,32 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Event" asp-action="Index">Events</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
+
+                <div class="text-right">
+                    <ul class="nav navbar-nav">
+
+                        <li class="dropdown text-right">
+                            <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class=" glyphicon glyphicon-cog text-primary" style="font-size:1.4em; padding: 0em; margin: 0;">  </span>
+                            </a>
+                            <ul class="dropdown-menu rounded">
+                                <li><a class="btn btn-outline-danger" asp-action="Index" asp-controller="RoleManagement">Role Management</a></li>
+                                <li><a class="btn btn-outline-dark" asp-action="Index" asp-controller="Event">Event Management</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </nav>
     <div class="container body-content">
+        <span class="text-danger">@TempData["message"]</span>
         @RenderBody()
         <hr />
         <footer>

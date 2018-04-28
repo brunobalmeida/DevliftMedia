@@ -1,0 +1,44 @@
+﻿@model IEnumerable<IdentityRole>
+@{
+    ViewData["Title"] = "Role Management";
+    bool isDeveloper = User.IsInRole("Developer");
+}
+
+<br />
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <h2 class="text-center">@ViewData["Title"]</h2>
+        @if (isDeveloper)
+        {
+            <form asp-action="AddRole" class="form-group">
+                <h3 class="text-center">Create New Role</h3>
+                <input type="text" name="roleName" class="form-control" /><br />
+                <input type="submit" value="Create Role" class="btn btn-outline-dark d-lg-block center-block" />
+            </form>
+        }
+
+        <table class="table table-bordered">
+            <tr class="text-center">
+                <th>
+                    Role
+                </th>
+                <th>Actions</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td class="text-center">
+                        @if (isDeveloper)
+                        {
+                            <a asp-action="DeleteRole" asp-route-roleName="@item.Name" class="btn btn-outline-danger">Delete Role </a>
+                        }
+                        | <a asp-action="ManageUsers" asp-route-roleName="@item.Name" class="btn btn-outline-primary">Manage Users</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-4"></div>
+</div>

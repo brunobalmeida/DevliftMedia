@@ -38,6 +38,8 @@ namespace EventApp
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddSession();
+            services.AddDistributedMemoryCache();
 
             services.AddMvc();
         }
@@ -59,6 +61,8 @@ namespace EventApp
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
