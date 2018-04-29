@@ -1,66 +1,30 @@
 ﻿@model EventApp.Models.Events
-
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = $"Details of: {Model.EventTitle}";
+    var date = Model.EventDate.ToLongDateString();
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Events</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.EventTitle)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EventTitle)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EventDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EventDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Picture)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Picture)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PictureType)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PictureType)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EventDescription)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EventDescription)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EventContact)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EventContact)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EventLink)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EventLink)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EventAddress)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EventAddress)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.EventId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 text-center">
+            <br /><br />
+            <img src="@Model.GetPicture()" alt="Event Picture" width="500px" />
+            <h3 class="text-primary font-weight-bold text-uppercase">@Model.EventTitle</h3>
+            <div class="font-weight-bold">
+                <p>@Model.EventDescription</p>
+                <p>Date: @date</p>
+                <p>Where: @Model.EventAddress</p>
+                <br />
+                <p>Contact: @Model.EventContact</p>
+                <p>Event Link: <br /> <a href="@Model.EventLink" target="_blank" class="btn btn-outline-success">Click Here for more details.</a></p>
+            </div>
+            <br />
+            <a class="btn btn-outline-primary" asp-action="Index">Back to List</a>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
 </div>

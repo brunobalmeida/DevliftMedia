@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EventApp.Models;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace EventApp.Controllers
 {
@@ -24,7 +26,7 @@ namespace EventApp.Controllers
         /// <returns>Returns a List of events from Db</returns>
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Events.ToListAsync());
+            return View(await _context.Events.OrderBy(a=>a.EventDate).ToListAsync());
         }
 
         /// <summary>
@@ -65,12 +67,22 @@ namespace EventApp.Controllers
         /// <returns>Return the view</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EventId,EventTitle,EventDate,Picture,PictureType,EventDescription,EventContact,EventLink,EventAddress")] Events events)
+        public async Task<IActionResult> Create([Bind("EventId,EventTitle,EventDate,Picture,PictureType,EventDescription,EventContact,EventLink,EventAddress")] Events events, IFormFile Picture)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    if (Picture != null)
+                    {
+                        using (var stream = new MemoryStream())
+                        {
+                            await Picture.CopyToAsync(stream);
+                            events.Picture = stream.ToArray();
+                            events.PictureType = Picture.ContentType;
+                        }
+                    }
+
                     _context.Add(events);
                     await _context.SaveChangesAsync();
                     TempData["message"] = "The event has been successfully added to the Database.";

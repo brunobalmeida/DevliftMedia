@@ -1,77 +1,52 @@
 ﻿@model IEnumerable<EventApp.Models.Events>
-
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Events List";
+    int count = 0;
+    bool isAdmin = User.IsInRole("Admin");
+    bool isDeveloper = User.IsInRole("Developer");
 }
 
-<h2>Index</h2>
 
-<p>
-    <a asp-action="Create" class="btn btn-outline-dark">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.EventTitle)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EventDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Picture)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PictureType)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EventDescription)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EventContact)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EventLink)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EventAddress)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Picture)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PictureType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventContact)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventLink)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventAddress)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.EventId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EventId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EventId">Delete</a>
-            </td>
-        </tr>
+<br /><br />
+
+<div class="container">
+    <div class="row">
+        @if (isAdmin || isDeveloper)
+        {
+            <div class="text-center">
+                <a class="btn  btn-outline-dark" asp-action="Create">Add New Event</a>
+            </div>
+        }
+        <br />
+
+        @foreach (var item in Model)
+        {
+
+        <div class="col-md-4 text-center">
+            <a asp-action="Details" asp-route-id="@item.EventId">
+                <img src="@item.GetPicture()" alt="Event Picture" width="380px" height="220px" />
+                <h3 class="">@item.EventTitle</h3>
+            </a>
+            <a asp-action="Details" asp-route-id="@item.EventId" class="btn btn-outline-info">Event Details</a>
+
+            @if (isAdmin || isDeveloper)
+    {
+        <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.EventId">Edit</a>
+        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.EventId">Delete</a>
 }
-    </tbody>
-</table>
+
+
+
+            <br /><br />
+        </div>
+
+
+            count++;
+            if (count == 3)
+            {
+                <div class="row"></div>
+                count = 0;
+            }
+        }
+    </div>
+</div>

@@ -7,7 +7,7 @@ namespace EventApp.Models
     {
         public int EventId { get; set; }
         public string EventTitle { get; set; }
-        public DateTime? EventDate { get; set; }
+        public DateTime EventDate { get; set; }
         public byte[] Picture { get; set; }
         public string PictureType { get; set; }
         public string EventDescription { get; set; }

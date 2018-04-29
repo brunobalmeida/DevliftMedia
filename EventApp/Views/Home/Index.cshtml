@@ -1,106 +1,70 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<EventApp.Models.Events>
+@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["Title"] = "Event Web App - Find your next event here.";
+    int count = 0;
+    bool isAdmin = User.IsInRole("Admin");
+    bool isDeveloper = User.IsInRole("Developer");
+    int maxEventId = 0;
+    if (Context.Session.GetString("maxEventId")!=null)
+    {
+        maxEventId = int.Parse(Context.Session.GetString("maxEventId"));
+    }
+    var eventLink = Model.FirstOrDefault(a => a.EventId == maxEventId).EventLink;
+    var date = Model.FirstOrDefault(a => a.EventDate == a.EventDate).EventDate.ToLongDateString();
 }
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-        <li data-target="#myCarousel" data-slide-to="3"></li>
-    </ol>
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <img src="~/images/banner1.svg" alt="ASP.NET" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    Learn how to build ASP.NET apps that can run anywhere.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
+<div class="row">
+
+    <h1 style="padding: 0.8em 0 0.5em 0;  font-size: 300%;" class="font-weight-bold text-uppercase text-primary text-center">@ViewData["Title"] </h1><hr />
+
+    <div class="container">
+        <div class="col-md-7">
+            <img class="img-responsive center-block" src="@Model.SingleOrDefault(a=>a.EventId == maxEventId).GetPicture()" alt="The event" width="500">
         </div>
-        <div class="item">
-            <img src="~/images/banner2.svg" alt="Visual Studio" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    There are powerful new features in Visual Studio for building modern web apps.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525030&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="~/images/banner3.svg" alt="Package Management" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    Bring in libraries from NuGet and npm, and automate tasks using Grunt or Gulp.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525029&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="~/images/banner4.svg" alt="Microsoft Azure" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    Learn how Microsoft's Azure cloud platform allows you to build, deploy, and scale web apps.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525027&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
+        <div class="col-md-5 text-center">
+            <h3 class="font-weight-bold text-uppercase text-primary text-center">@Model.SingleOrDefault(a => a.EventId == maxEventId).EventTitle </h3><br />
+            <p class="font-weight-bold text-uppercase text-primary text-center">Event Details:</p> @Model.SingleOrDefault(a => a.EventId == maxEventId).EventDescription <br /><br />
+            <p class="font-weight-bold text-uppercase text-primary text-center">Event Date:</p> @date <br /><br />
+            <p class="font-weight-bold text-uppercase text-primary text-center">Where is it?</p> @Model.SingleOrDefault(a => a.EventId == maxEventId).EventAddress <br /><br />
+            <p class="font-weight-bold text-uppercase text-primary text-center">Who should I ask a question?</p> @Model.SingleOrDefault(a => a.EventId == maxEventId).EventContact<br /><br />
+
+            @if (eventLink != null)
+            {
+                <p class="font-weight-bold text-uppercase text-primary text-center">Event Link:</p> <a href="@eventLink" target="_blank" class="btn btn-outline-success">Click Here</a>
+            }
         </div>
     </div>
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
+    <br /><hr />
 </div>
 
 <div class="row">
-    <div class="col-md-3">
-        <h2>Application uses</h2>
-        <ul>
-            <li>Sample pages using ASP.NET Core MVC</li>
-            <li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>How to</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=398600">Add a Controller and View</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production environment.</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Overview</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup and middleware.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Run &amp; Deploy</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517851">Run your app</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517853">Run tools such as EF migrations and more</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
-        </ul>
-    </div>
+
+    <h2 class="font-weight-bold text-uppercase text-primary text-center">Click here to check the other events</h2><br />
+
+    @foreach (var item in Model)
+    {
+
+        <div class="col-md-4 text-center">
+            <a asp-action="Details" asp-route-id="@item.EventId">
+                <img src="@item.GetPicture()" alt="Event Picture" width="380px" height="220px" />
+                <h3 class="">@item.EventTitle</h3>
+            </a>
+            <a asp-controller="Event" asp-action="Details" asp-route-id="@item.EventId" class="btn btn-outline-info">Event Details</a>
+
+            <br /><br />
+        </div>
+
+
+        count++;
+        if (count == 3)
+        {
+            <div class="row"></div>
+            count = 0;
+        }
+    }
+
+
 </div>
+

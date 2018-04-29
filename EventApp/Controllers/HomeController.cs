@@ -5,14 +5,29 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EventApp.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace EventApp.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly EvenAppContext _context;
+
+        public HomeController(EvenAppContext context)
         {
-            return View();
+            _context = context;
+        }
+        
+        public async Task<IActionResult> Index()
+        {
+            var maxEventId = _context.Events.Max(a => a.EventId);
+
+            HttpContext.Session.SetString("maxEventId", maxEventId.ToString());
+
+            var eventAppContext = _context.Events;
+
+            return View(await eventAppContext.ToListAsync());
         }
 
         public IActionResult About()
