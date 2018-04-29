@@ -11,7 +11,7 @@ using EventApp.Models;
 
 namespace EventApp.Controllers
 {
-    //[Authorize(Roles = "Admin, Developers")]
+    [Authorize(Roles = "Admin, Developer")]
     public class RoleManagementController : Controller
     {
 

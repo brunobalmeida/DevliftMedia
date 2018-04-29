@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using EventApp.Models;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventApp.Controllers
 {
@@ -55,6 +56,7 @@ namespace EventApp.Controllers
         /// Get method for the Create view
         /// </summary>
         /// <returns>Returns the create view</returns>
+        [Authorize (Roles = "Admin , Developer")]
         public IActionResult Create()
         {
             return View();
@@ -65,6 +67,7 @@ namespace EventApp.Controllers
         /// </summary>
         /// <param name="events">event object</param>
         /// <returns>Return the view</returns>
+        [Authorize(Roles = "Admin , Developer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("EventId,EventTitle,EventDate,Picture,PictureType,EventDescription,EventContact,EventLink,EventAddress")] Events events, IFormFile Picture)
@@ -101,6 +104,7 @@ namespace EventApp.Controllers
         /// </summary>
         /// <param name="id">int: Event id </param>
         /// <returns>Returns the view </returns>
+        [Authorize(Roles = "Admin , Developer")]
         public async Task<IActionResult> Edit(int? id, string eventTitle)
         {
             if (eventTitle!=null)
@@ -129,6 +133,7 @@ namespace EventApp.Controllers
         /// <returns>Returns the view</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin , Developer")]
         public async Task<IActionResult> Edit(int id, [Bind("EventId,EventTitle,EventDate,Picture,PictureType,EventDescription,EventContact,EventLink,EventAddress")] Events events, IFormFile Picture)
         {
             if (id != events.EventId)
@@ -184,6 +189,7 @@ namespace EventApp.Controllers
         /// </summary>
         /// <param name="id">int: Event id</param>
         /// <returns>Return the view</returns>
+        [Authorize(Roles = "Admin , Developer")]
         public async Task<IActionResult> Delete(int? id, string eventTitle)
         {
             if (eventTitle != null)
@@ -213,6 +219,7 @@ namespace EventApp.Controllers
         /// <returns>Returns the view</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin , Developer")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             try

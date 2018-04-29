@@ -16,6 +16,11 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
+
+@{ 
+    bool isAdmin = User.IsInRole("Admin");
+    bool isDeveloper = User.IsInRole("Developer");
+}
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -33,13 +38,14 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Event" asp-action="Index">Events</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
 
+                @if (isAdmin || isDeveloper)
+                {
+                
                 <div class="text-right">
                     <ul class="nav navbar-nav">
-
                         <li class="dropdown text-right">
                             <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 <span class=" glyphicon glyphicon-cog text-primary" style="font-size:1.4em; padding: 0em; margin: 0;">  </span>
@@ -51,7 +57,7 @@
                         </li>
                     </ul>
                 </div>
-
+                }
             </div>
         </div>
     </nav>
