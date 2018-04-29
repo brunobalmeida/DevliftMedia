@@ -11,34 +11,37 @@
 
 <div class="container">
     <div class="row">
-        @if (isAdmin || isDeveloper)
-        {
-            <div class="text-center">
+
+        <div class="text-center">
+            @if (isAdmin || isDeveloper)
+            {
                 <a class="btn  btn-outline-dark" asp-action="Create">Add New Event</a>
-            </div>
-        }
+            }
+            <a class="btn  btn-outline-primary" asp-action="index" asp-controller="home">Back to Home</a>
+        </div>
+
         <br />
 
         @foreach (var item in Model)
         {
 
-        <div class="col-md-4 text-center">
-            <a asp-action="Details" asp-route-id="@item.EventId">
-                <img src="@item.GetPicture()" alt="Event Picture" width="380px" height="220px" />
-                <h3 class="">@item.EventTitle</h3>
-            </a>
-            <a asp-action="Details" asp-route-id="@item.EventId" class="btn btn-outline-info">Event Details</a>
+            <div class="col-md-4 text-center">
+                <a asp-action="Details" asp-route-id="@item.EventId">
+                    <img src="@item.GetPicture()" alt="Event Picture" width="380px" height="220px" />
+                    <h3 class="">@item.EventTitle</h3>
+                </a>
+                <a asp-action="Details" asp-route-id="@item.EventId" class="btn btn-outline-info">Event Details</a>
 
-            @if (isAdmin || isDeveloper)
-    {
-        <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.EventId">Edit</a>
-        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.EventId">Delete</a>
-}
+                @if (isAdmin || isDeveloper)
+                {
+                    <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.EventId" asp-route-eventTitle="@item.EventTitle">Edit</a>
+                    <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.EventId" asp-route-eventTitle="@item.EventTitle">Delete</a>
+                }
 
 
 
-            <br /><br />
-        </div>
+                <br /><br />
+            </div>
 
 
             count++;

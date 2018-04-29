@@ -1,69 +1,30 @@
 ﻿@model EventApp.Models.Events
-
+@using Microsoft.AspNetCore.Http;
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = $"Delete {Context.Session.GetString("eventTitle")}";
 }
 
-<h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Events</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.EventTitle)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EventTitle)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EventDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EventDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Picture)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Picture)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PictureType)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PictureType)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EventDescription)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EventDescription)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EventContact)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EventContact)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EventLink)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EventLink)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EventAddress)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EventAddress)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="EventId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 text-center">
+
+        <div class="font-weight-bold text-uppercase text-primary ">
+            <h3>Are you sure you want to delete this event?</h3><hr />
+        </div>
+
+        <a asp-action="Details" asp-route-id="@Model.EventId">
+            <img src="@Model.GetPicture()" alt="Event Picture" width="380px" height="220px" />
+            <h3 class="">@Model.EventTitle</h3>
+        </a>
+
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="EventId" />
+            <input type="submit" value="Delete" class="btn btn-outline-danger" /> |
+            <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
+        </form>
+
+    </div>
+    <div class="col-md-4"></div>
 </div>

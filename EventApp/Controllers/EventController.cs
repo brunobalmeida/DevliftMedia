@@ -101,8 +101,13 @@ namespace EventApp.Controllers
         /// </summary>
         /// <param name="id">int: Event id </param>
         /// <returns>Returns the view </returns>
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, string eventTitle)
         {
+            if (eventTitle!=null)
+            {
+                HttpContext.Session.SetString("eventTitle", eventTitle);
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -124,7 +129,7 @@ namespace EventApp.Controllers
         /// <returns>Returns the view</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EventId,EventTitle,EventDate,Picture,PictureType,EventDescription,EventContact,EventLink,EventAddress")] Events events)
+        public async Task<IActionResult> Edit(int id, [Bind("EventId,EventTitle,EventDate,Picture,PictureType,EventDescription,EventContact,EventLink,EventAddress")] Events events, IFormFile Picture)
         {
             if (id != events.EventId)
             {
@@ -135,6 +140,21 @@ namespace EventApp.Controllers
             {
                 try
                 {
+                    if (Picture != null)
+                    {
+                        using (var stream = new MemoryStream())
+                        {
+                            await Picture.CopyToAsync(stream);
+                            events.Picture = stream.ToArray();
+                            events.PictureType = Picture.ContentType;
+                        }
+                    }
+                    else
+                    {
+                        var actualPicture = _context.Events.FirstOrDefault(a => a.EventId == id).Picture;
+                        events.Picture = actualPicture;
+                    }
+
                     _context.Update(events);
                     await _context.SaveChangesAsync();
                     TempData["message"] = "The event has been successfully updated";
@@ -164,8 +184,13 @@ namespace EventApp.Controllers
         /// </summary>
         /// <param name="id">int: Event id</param>
         /// <returns>Return the view</returns>
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, string eventTitle)
         {
+            if (eventTitle != null)
+            {
+                HttpContext.Session.SetString("eventTitle", eventTitle);
+            }
+
             if (id == null)
             {
                 return NotFound();

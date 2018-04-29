@@ -25,7 +25,7 @@ namespace EventApp.Controllers
 
             HttpContext.Session.SetString("maxEventId", maxEventId.ToString());
 
-            var eventAppContext = _context.Events;
+            var eventAppContext = _context.Events.OrderBy(a=>a.EventDate);
 
             return View(await eventAppContext.ToListAsync());
         }

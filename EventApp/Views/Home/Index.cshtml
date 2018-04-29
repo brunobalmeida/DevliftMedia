@@ -45,6 +45,8 @@
 
     @foreach (var item in Model)
     {
+        if (count<3)
+        {
 
         <div class="col-md-4 text-center">
             <a asp-action="Details" asp-route-id="@item.EventId">
@@ -55,14 +57,10 @@
 
             <br /><br />
         </div>
-
-
-        count++;
-        if (count == 3)
-        {
-            <div class="row"></div>
-            count = 0;
+            count++;
         }
+
+        
     }
 
 

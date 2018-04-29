@@ -1,17 +1,17 @@
 ﻿@model EventApp.Models.Events
-
+@using Microsoft.AspNetCore.Http;
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = $"Edit: {Context.Session.GetString("eventTitle")}";
+
 }
 
-<h2>Edit</h2>
 
-<h4>Events</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <h2 class="text-center font-weight-bold text-uppercase text-primary ">@ViewData["Title"]</h2><hr />
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="EventId" />
             <div class="form-group">
                 <label asp-for="EventTitle" class="control-label"></label>
@@ -25,13 +25,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Picture" class="control-label"></label>
-                <input asp-for="Picture" class="form-control" />
+                <input type="file" asp-for="Picture"/>
                 <span asp-validation-for="Picture" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PictureType" class="control-label"></label>
-                <input asp-for="PictureType" class="form-control" />
-                <span asp-validation-for="PictureType" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EventDescription" class="control-label"></label>
@@ -54,14 +49,17 @@
                 <span asp-validation-for="EventAddress" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-outline-dark" />
+                <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
             </div>
         </form>
+
     </div>
+    <div class="col-md-3"></div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+
 </div>
 
 @section Scripts {

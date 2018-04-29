@@ -11,7 +11,7 @@
     <div class="col-md-6">
         <h2 class="display text-center font-weight-bold text-primary">@ViewData["Title"]</h2> <hr />
         <form asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="EventTitle" class="control-label"></label>
                 <input asp-for="EventTitle" class="form-control" />
@@ -49,14 +49,11 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-outline-dark" />
+                <a class="btn btn-outline-primary" asp-action="Index">Back to List</a>
             </div>
         </form>
     </div>
     <div class="col-md-3"></div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
